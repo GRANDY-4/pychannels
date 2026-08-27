@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = {file = "LICENSE"}
 authors = [
-    {name = "GRAND"}
+    {name = "GRAND"},
     {name = "MatButBetter"}
 ]
 keywords = ["channels", "events", "triggers", "keybinds", "keyboard"]
