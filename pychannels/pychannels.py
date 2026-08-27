@@ -17,20 +17,27 @@ class channels:
     def read(key):
         return keybinds[key][0]
 
-    def listen():
+    def listen(exclude=None):
         global listen
         while listen == True:
+            if exclude is None:
+                exclude = []
             event = k.read_event()
 
             if event.event_type == "down":
                 if event.name in keybinds:
-                    code, context = keybinds[event.name]
-                    exec(code, context)
+                    if not event.name in exclude:
+                        code, context = keybinds[event.name]
+                        exec(code, context)
+                    else:
+                        pass
 
-    def setListen(bl):
+    def setListen(bl, exclude=None):
         global listen
         listen = bl
-        channels.listen()
+        if exclude is None:
+            exclude = []
+        channels.listen(exclude)
 
     def waitFor(key):
         k.wait(key)
