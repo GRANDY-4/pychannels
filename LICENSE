@@ -1,0 +1,56 @@
+PyChannels Custom License
+
+Copyright (c) 2026 GRAND
+
+1. Permission to Use
+
+Permission is granted to use PyChannels, in whole or in part, in personal,
+educational, non-commercial, and commercial projects without requiring credit
+to the original author, provided that the conditions below are followed.
+
+2. Commercial Use
+
+PyChannels may be included in commercial software and commercial projects
+without requiring attribution to the original author.
+
+3. Ownership and Claiming
+
+You may not claim PyChannels, its original source code, or the original work
+as your own.
+
+You may not misrepresent the original PyChannels package or its original
+source code as having been created by you or another party.
+
+4. Republishing
+
+You may not republish, redistribute, or release PyChannels itself, substantially
+unchanged, under another name or as your own package.
+
+You may, however, build upon, modify, extend, or incorporate PyChannels into
+another project.
+
+5. Derivative Works
+
+You may modify, extend, or build upon the PyChannels source code.
+
+If you distribute a work that contains or is substantially based on
+PyChannels source code, you MUST give clear credit to PyChannels and GRAND
+as the original author.
+
+This requirement does not apply to software that merely uses PyChannels
+as an external dependency or library.
+
+For example, a commercial application that imports and uses PyChannels
+does not require attribution. A modified version of PyChannels or a project
+whose code is substantially based on PyChannels does require attribution.
+
+6. No Warranty
+
+PyChannels is provided "AS IS", without warranty of any kind, express or
+implied. The author shall not be held liable for any damages, claims, or
+other liability arising from the use of the software.
+
+7. Acceptance
+
+By using, modifying, incorporating, or distributing PyChannels, you agree to
+the terms of this license.
