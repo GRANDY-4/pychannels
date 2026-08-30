@@ -123,7 +123,7 @@ class mouse:
     def update():
         if mouse.listen and mouse.clickHook is None:
             mouse.clickHook = m.on_click(
-                lambda event: DEPENDENTTOOLS.runSavedClickCode(mouse.clickCode)
+                lambda: DEPENDENTTOOLS.runSavedClickCode(mouse.clickCode)
             )
 
         elif not mouse.listen and mouse.clickHook is not None:
