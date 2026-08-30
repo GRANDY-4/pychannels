@@ -1,46 +1,64 @@
 import keyboard as k
 import inspect
+import mouse as m
 
 keybinds = {}
 triggersl = {}
-listen = None
+listen = False
 func = None
+
 
 class channels:
     def assign(key, func):
         context = inspect.currentframe().f_back.f_globals
         keybinds[key] = (func, context)
-    
+
     def unassign(key):
-        keybinds[key] = None
-    
+        if key in keybinds:
+            del keybinds[key]
+
     def read(key):
+        if key not in keybinds:
+            raise KeyError(f"Key '{key}' does not exist")
+
         return keybinds[key][0]
 
     def listen(exclude=None):
         global listen
+
+        if exclude is None:
+            exclude = []
+
         while listen == True:
-            if exclude is None:
-                exclude = []
             event = k.read_event()
 
             if event.event_type == "down":
                 if event.name in keybinds:
-                    if not event.name in exclude:
-                        code, context = keybinds[event.name]
-                        exec(code, context)
-                    else:
-                        pass
+                    if event.name not in exclude:
+                        if keybinds[event.name] is not None:
+                            code, context = keybinds[event.name]
+                            exec(code, context)
 
     def setListen(bl, exclude=None):
         global listen
+
         listen = bl
+
         if exclude is None:
             exclude = []
-        channels.listen(exclude)
+
+        if bl == True:
+            channels.listen(exclude)
 
     def waitFor(key):
+        if key not in keybinds:
+            raise KeyError(f"Key '{key}' does not exist")
+
+        if keybinds[key] is None:
+            return
+
         k.wait(key)
+
         code, context = keybinds[key]
         exec(code, context)
 
@@ -51,12 +69,16 @@ class channels:
         global keybinds
         keybinds = {}
 
+
 class triggers:
     def assign(name, code):
         context = inspect.currentframe().f_back.f_globals
         triggersl[name] = (code, context)
 
     def read(name):
+        if name not in triggersl:
+            raise KeyError(f"Trigger '{name}' does not exist")
+
         return triggersl[name][0]
 
     def trigger(name):
@@ -78,4 +100,32 @@ class triggers:
         triggersl = {}
 
     def returnValue(name):
-        return exec(triggersl[name])
+        if name not in triggersl:
+            raise KeyError(f"Trigger '{name}' does not exist")
+
+        return triggersl[name][0]
+
+
+class DEPENDENTTOOLS:
+    def runSavedClickCode(prm):
+        if prm is not None:
+            exec(prm)
+
+
+class mouse:
+    listen = False
+    clickCode = None
+    clickHook = None
+
+    def onClick(func):
+        mouse.clickCode = func
+
+    def update():
+        if mouse.listen and mouse.clickHook is None:
+            mouse.clickHook = m.on_click(
+                lambda event: DEPENDENTTOOLS.runSavedClickCode(mouse.clickCode)
+            )
+
+        elif not mouse.listen and mouse.clickHook is not None:
+            m.unhook(mouse.clickHook)
+            mouse.clickHook = None
